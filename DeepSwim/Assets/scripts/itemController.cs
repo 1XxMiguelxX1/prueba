@@ -15,4 +15,13 @@ public class itemController : MonoBehaviour
     {
         transform.position += Vector3.left * velocidad * Time.deltaTime;
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")) // Asegúrate de que el jugador tenga este tag
+        {
+            GameManager.instance.SumarPunto();
+            Destroy(gameObject); // Desaparece el item
+        }
+    }
 }

@@ -25,22 +25,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    /// /////////////////////
-
-
-    //Reiniciar cuando muere
-
-    //public void RestartScene()
-    //{
-    //    string currentSceneName = SceneManager.GetActiveScene().name;
-    //    puntos = 0;
-    //    SceneManager.LoadScene(currentSceneName);
-    //}
-
- 
-
-
-
 
     //Puntos
     public void SumarPunto()
@@ -57,6 +41,13 @@ public class GameManager : MonoBehaviour
             puntosText.text = puntos.ToString();
         }
     }
+
+    public void ReiniciarPuntos()
+    {
+        puntos = 0;
+        ActualizarPuntosUI();
+    }
+
 
     private void Update()
     {
@@ -76,8 +67,6 @@ public class GameManager : MonoBehaviour
     {
         audioSource.PlayOneShot(pointSound);
     }
-
-
 
 
 
