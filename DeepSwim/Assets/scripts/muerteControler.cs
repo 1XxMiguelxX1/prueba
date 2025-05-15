@@ -4,7 +4,7 @@ using UnityEngine;
 public class MuerteController : MonoBehaviour
 {
     // Duración de la animación de muerte (ajústala según tu animación)
-    public float duracionAnimacion = 1.0f;
+    public float duracionAnimacion = .5f;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

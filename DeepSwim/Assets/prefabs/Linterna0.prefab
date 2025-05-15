@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899eeae2df9a05e42bfe83331c31ab0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 8
+  velocidad: 23
 --- !u!95 &1214528464390035381
 Animator:
   serializedVersion: 5
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b2d14e6f6aca4498d918fc43c98c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duracionAnimacion: 1
+  duracionAnimacion: 0.5
 --- !u!61 &1547255569012358604
 BoxCollider2D:
   m_ObjectHideFlags: 0

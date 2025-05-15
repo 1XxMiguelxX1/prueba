@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class itemController : MonoBehaviour
 {
-    public float velocidad = 8f;
+    public float velocidad = 10f;
 
     void Start()
     {
-        Destroy(gameObject, 5.3f);
+        Destroy(gameObject, 3.1f);
     }
 
     void Update()
@@ -20,7 +20,7 @@ public class itemController : MonoBehaviour
     {
         if (other.CompareTag("Player")) // Asegúrate de que el jugador tenga este tag
         {
-            GameManager.instance.SumarPunto();
+            //GameManager.instance.SumarPunto();
             Destroy(gameObject); // Desaparece el item
         }
     }

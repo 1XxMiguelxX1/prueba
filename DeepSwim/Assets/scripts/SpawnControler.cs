@@ -6,8 +6,8 @@ public class SpawnControler : MonoBehaviour
 {
     public GameObject[] ItemPrefab;
     public float TiempoSpawn = 2f;
-    public float minY = -5.8f;
-    public float maxY = 13f;
+    public float minY = -4f;
+    public float maxY = 15f;
 
     private float timer = 0f;
 

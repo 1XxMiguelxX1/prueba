@@ -4,18 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-//public class GameOver : MonoBehaviour
-//{
-
-//    public TMP_Text puntosText;
-//    public GameObject gameOverPanel;
-
-//    public void MostrarGameOver ()
-//    {
-//        gameOverPanel.SetActive(true);
-//        puntosText.text = (("Puntos: ") + FindAnyObjectByType<GameManager>().puntos).ToString ();
-//    }
-//}
 
 public class GameOver : MonoBehaviour
 {
@@ -28,10 +16,13 @@ public class GameOver : MonoBehaviour
         puntosText.text = "Puntos: " + GameManager.instance.puntos;
     }
 
+
     public void ReiniciarJuego()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameManager.instance.ReiniciarJuego(); // Reinicia los puntos
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Recarga la escena
     }
+
 
     public void IRaMENU()
     {

@@ -41,12 +41,12 @@ public class GameManager : MonoBehaviour
             puntosText.text = puntos.ToString();
         }
     }
-
-    public void ReiniciarPuntos()
+    public void ReiniciarJuego()
     {
         puntos = 0;
         ActualizarPuntosUI();
     }
+
 
 
     private void Update()
