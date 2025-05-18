@@ -4,16 +4,30 @@ using UnityEngine;
 
 public class itemController : MonoBehaviour
 {
-    public float velocidad = 10f;
+    public float velocidad = 13.3f;
+    public float caida = 0.5f; 
+    public bool cae = false;
 
     void Start()
     {
+        if (CompareTag("objeto"))
+        {
+            cae = true;
+        }
+
         Destroy(gameObject, 3.1f);
     }
 
     void Update()
     {
-        transform.position += Vector3.left * velocidad * Time.deltaTime;
+        Vector3 movimiento = Vector3.left * velocidad;
+
+        if (cae)
+        {
+            movimiento += Vector3.down * caida; 
+        }
+
+        transform.position += movimiento * Time.deltaTime;
     }
 
     void OnTriggerEnter2D(Collider2D other)
