@@ -4,79 +4,56 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-
 public class playercontroler : MonoBehaviour
 {
-    public float fuerzaVuelo = 3f;
-    public float gravedad = 9f;
+    public float fuerzaVuelo = 40f; // Empuje hacia arriba por segundo
+    public float gravedad = -30f;   // Gravedad personalizada
     private Rigidbody2D rb;
     private Animator Animator;
+    public bool estaMuerto = false;
+
+    private float velocidadVertical = 0f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         Animator = GetComponent<Animator>();
-        //        rb.gravityScale = 0; // Desactiva la gravedad de Unity
-
-
+        rb.gravityScale = 0f; // Desactivamos la gravedad de Unity
     }
 
     void Update()
     {
-        if (Input.GetMouseButton(0))  // Mientras esté presionado el clic izquierdo
+        if (estaMuerto) return; // ¡Esto bloquea la entrada y movimiento!
+
+        // Detectar si el jugador mantiene presionado
+        if (Input.GetMouseButton(0))
         {
-            rb.velocity = new Vector2(rb.velocity.x, fuerzaVuelo);
+            velocidadVertical += fuerzaVuelo * Time.deltaTime;
             Animator.SetBool("subida", true);
             Animator.SetBool("bajada", false);
         }
         else
         {
-            rb.velocity += new Vector2(0, -gravedad * Time.deltaTime);
+            velocidadVertical += gravedad * Time.deltaTime;
 
-            // Si la velocidad en Y es aproximadamente 0, cambiar a idle
-            if (Mathf.Abs(rb.velocity.y) < 0.1f)
+            if (Mathf.Abs(velocidadVertical) < 0.1f)
             {
                 Animator.SetBool("subida", false);
                 Animator.SetBool("bajada", false);
             }
-            // Si la velocidad es negativa, activar la animación de bajada
-            else if (rb.velocity.y < 0)
+            else if (velocidadVertical < 0)
             {
                 Animator.SetBool("bajada", true);
                 Animator.SetBool("subida", false);
             }
         }
+
+        // Aplicar la velocidad al Rigidbody
+        rb.velocity = new Vector2(0, velocidadVertical);
+
+        // Opcional: Limitar velocidad vertical para que no sea demasiado rápida
+        velocidadVertical = Mathf.Clamp(velocidadVertical, -15f, 15f);
     }
-
-    /*  void Update()
-      {
-          if (Input.GetMouseButton(0))  // Mientras esté presionado el clic izquierdo
-          {
-              rb.velocity = new Vector2(rb.velocity.x, fuerzaVuelo);
-              Animator.SetBool("subida", true);
-          }
-          else
-          {
-              rb.velocity += new Vector2(0, -gravedad * Time.deltaTime);
-              Animator.SetBool("bajada", true);
-
-               Animator.SetBool("subida", false); // Se apaga cuando sueltas el clic
-          }
-      } */
-
-    /* void Update()
-     {
-         if (Input.GetMouseButton(0))  // Mientras esté presionado el clic izquierdo
-         {
-             rb.velocity = new Vector2(rb.velocity.x, fuerzaVuelo);
-            // Animator.SetBool("subida", fuerzaVuelo != 0.0f);
-         }
-
-         else
-         {
-             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - gravedad * Time.deltaTime);
-         }
-     } */
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -85,14 +62,5 @@ public class playercontroler : MonoBehaviour
             Debug.Log("Obtuviste punto");
             GameManager.instance.SumarPunto();
         }
-    //    else if (collision.CompareTag("obstaculo"))
-    //    {
-    //        Debug.Log("Game Over");
-    //        FindAnyObjectByType<GameOver>().MostrarGameOver();
-    //    }
     }
-
-
-
-
 }

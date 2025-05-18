@@ -1878,10 +1878,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1326481063}
   - component: {fileID: 1326481062}
-  - component: {fileID: 1326481064}
-  - component: {fileID: 1326481066}
   - component: {fileID: 1326481067}
   - component: {fileID: 1326481068}
+  - component: {fileID: 1326481069}
+  - component: {fileID: 1326481070}
   m_Layer: 0
   m_Name: nave
   m_TagString: Player
@@ -1956,47 +1956,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1326481064
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326481061}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &1326481066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1326481061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc8f96d86f9d0214380170f211beb88a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fuerzaVuelo: 4.5
-  gravedad: 9
 --- !u!61 &1326481067
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2063,6 +2022,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1326481069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326481061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc8f96d86f9d0214380170f211beb88a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuerzaVuelo: 60
+  gravedad: -50
+  estaMuerto: 0
+--- !u!50 &1326481070
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326481061}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1428540368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2191,7 +2192,7 @@ MonoBehaviour:
   - {fileID: 292668394952892987, guid: 94f726e67e2f0c64b9a13a51746d39e0, type: 3}
   - {fileID: 7182185049796493001, guid: 4d69742d26228814bad1d04af227529a, type: 3}
   - {fileID: 5284988062500059910, guid: b143e50eec670054cbb8e1cdf373dd15, type: 3}
-  TiempoSpawn: 0.09
+  TiempoSpawn: 0.2
   minY: -4
   maxY: 15
 --- !u!4 &1440526792

@@ -1,9 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class MuerteController : MonoBehaviour
 {
-    // Duración de la animación de muerte (ajústala según tu animación)
+    // DuraciÃ³n de la animaciÃ³n de muerte (ajÃºstala segÃºn tu animaciÃ³n)
     public float duracionAnimacion = .5f;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -15,9 +15,10 @@ public class MuerteController : MonoBehaviour
 
             if (anim != null)
             {
-                // Activa el trigger de la animación de muerte (asegúrate de que el parámetro se llame "muerte")
+                collision.gameObject.GetComponent<playercontroler>().estaMuerto = true; // â† Esto desactiva el control
+                // Activa el trigger de la animaciÃ³n de muerte (asegÃºrate de que el parÃ¡metro se llame "muerte")
                 anim.SetTrigger("muerte");
-                // Inicia la corrutina para destruir el objeto después de la animación
+                // Inicia la corrutina para destruir el objeto despuÃ©s de la animaciÃ³n
                 StartCoroutine(DestruirDespuesDeAnimacion(collision.gameObject));
             }
             else
@@ -32,7 +33,7 @@ public class MuerteController : MonoBehaviour
 
     private IEnumerator DestruirDespuesDeAnimacion(GameObject objeto)
     {
-        // Espera la duración de la animación antes de destruir el objeto
+        // Espera la duraciÃ³n de la animaciÃ³n antes de destruir el objeto
         yield return new WaitForSeconds(duracionAnimacion);
         Destroy(objeto);
         Debug.Log("Game Over");
