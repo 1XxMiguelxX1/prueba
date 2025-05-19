@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2638320825561301297}
   m_Layer: 0
   m_Name: Tortuga0
-  m_TagString: punto
+  m_TagString: vida
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 25
+  caida: 0.5
+  cae: 0
 --- !u!95 &2972406098415393
 Animator:
   serializedVersion: 5

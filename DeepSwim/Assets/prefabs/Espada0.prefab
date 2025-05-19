@@ -135,6 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 27
+  caida: 0.5
+  cae: 0
 --- !u!61 &2700465574055568749
 BoxCollider2D:
   m_ObjectHideFlags: 0

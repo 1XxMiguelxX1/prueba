@@ -8,9 +8,8 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public TMP_Text puntosText;
-    public TMP_Text metrosText;  // NUEVO: texto para metros
+    public TMP_Text metrosText; 
     public GameObject gameOverPanel;
-
     public metraje distanciaRecorrida; // referencia al script que controla metros
 
     public void MostrarGameOver()

@@ -3,10 +3,59 @@ using UnityEngine;
 
 public class MuerteController : MonoBehaviour
 {
-    // Duración de la animación de muerte (ajústala según tu animación)
     public float duracionAnimacion = .5f;
 
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playercontroler pc = collision.gameObject.GetComponent<playercontroler>();
+            if (pc.estaMuerto) return;
+
+            GameManager.instance.PerderVida();
+
+            if (GameManager.instance.vidas <= 0)
+            {
+                Animator anim = collision.gameObject.GetComponent<Animator>();
+                if (anim != null)
+                {
+                    pc.estaMuerto = true;
+                    anim.SetTrigger("muerte");
+                    StartCoroutine(DestruirDespuesDeAnimacion(collision.gameObject));
+                }
+                else
+                {
+                    Destroy(collision.gameObject);
+                    FindAnyObjectByType<GameOver>().MostrarGameOver();
+                    Debug.Log("Pal loby bb");
+                }
+            }
+        }
+    }
+
+    private IEnumerator DestruirDespuesDeAnimacion(GameObject objeto)
+    {
+        yield return new WaitForSeconds(duracionAnimacion);
+        Destroy(objeto);
+        Debug.Log("Game Over");
+        FindAnyObjectByType<GameOver>().MostrarGameOver();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * notas
+ * 
+   private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -40,3 +89,5 @@ public class MuerteController : MonoBehaviour
         FindAnyObjectByType<GameOver>().MostrarGameOver();
     }
 }
+
+*/

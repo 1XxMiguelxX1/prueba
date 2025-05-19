@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2214613606880296532}
   - component: {fileID: 498349076466889511}
   m_Layer: 0
-  m_Name: vida
-  m_TagString: punto
+  m_Name: coeur
+  m_TagString: vida
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

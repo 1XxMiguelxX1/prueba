@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip pointSound;
 
+    public int vidas = 3;
+    public AudioClip vidaSound;
+    public GameObject[] coeurUI;
+
 
     private void Awake()
     {
@@ -23,6 +27,36 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+
+    private void Update()
+    {
+        puntosText = GameObject.Find("puntosText").GetComponent<TMP_Text>();
+    }
+
+    ///Audio
+    void Start()
+    {
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+
+            ActualizarPuntosUI();
+            ActualizarVidasUI();
+        }
+    }
+
+    public void PlayPointSound()
+    {
+        if (pointSound != null)
+            audioSource.PlayOneShot(pointSound);
+    }
+
+    void PlayVidaSound()
+    {
+        if (vidaSound != null)
+            audioSource.PlayOneShot(vidaSound);
     }
 
 
@@ -44,31 +78,44 @@ public class GameManager : MonoBehaviour
     public void ReiniciarJuego()
     {
         puntos = 0;
+        vidas = 3;
         ActualizarPuntosUI();
+        ActualizarVidasUI();
+
     }
 
 
-
-    private void Update()
+    //VIdas
+    public void PerderVida()
     {
-        puntosText = GameObject.Find("puntosText").GetComponent<TMP_Text>(); //"
-    }
-
-    ///Audio
-    void Start()
-    {
-        if (audioSource == null)
+        vidas--;
+        ActualizarVidasUI();
+        if (vidas <= 0)
         {
-        audioSource = GetComponent<AudioSource>();
+            // Matar jugador aquí o llamar a GameOver
+            FindAnyObjectByType<GameOver>().MostrarGameOver();
         }
     }
 
-    public void PlayPointSound()
+    public void GanarVida()
     {
-        audioSource.PlayOneShot(pointSound);
+        if (vidas < coeurUI.Length)
+        {
+            vidas++;
+            PlayVidaSound();
+            ActualizarVidasUI();
+        }
     }
 
+    void ActualizarVidasUI()
+    {
+        for (int i = 0; i < coeurUI.Length; i++)
+        {
+            coeurUI[i].SetActive(i < vidas);
+        }
+    }
 
-
+ 
+ 
 
 }

@@ -34,7 +34,8 @@ public class itemController : MonoBehaviour
     {
         if (other.CompareTag("Player")) // Asegúrate de que el jugador tenga este tag
         {
-            //GameManager.instance.SumarPunto();
+            //var player = other.GetComponent<playercontroler>();
+            //if (player == null || player.estaMuerto) return;
             Destroy(gameObject); // Desaparece el item
         }
     }

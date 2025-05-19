@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 23
+  caida: 0.5
+  cae: 0
 --- !u!95 &1214528464390035381
 Animator:
   serializedVersion: 5

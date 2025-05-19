@@ -57,10 +57,19 @@ public class playercontroler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("punto"))
+        if (collision.CompareTag("vida"))
+        {
+            GameManager.instance.GanarVida();
+            Destroy(collision.gameObject);
+        }
+        else if (collision.CompareTag("punto"))
         {
             Debug.Log("Obtuviste punto");
             GameManager.instance.SumarPunto();
+           // Destroy(collision.gameObject);
         }
     }
+
+
+
 }

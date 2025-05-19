@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 23
+  caida: 0.5
+  cae: 0
 --- !u!114 &1290762813369661867
 MonoBehaviour:
   m_ObjectHideFlags: 0
