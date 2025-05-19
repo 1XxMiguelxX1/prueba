@@ -68,6 +68,8 @@ public class playercontroler : MonoBehaviour
             GameManager.instance.SumarPunto();
            // Destroy(collision.gameObject);
         }
+
+      
     }
 
 
