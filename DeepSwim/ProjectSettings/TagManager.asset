@@ -7,6 +7,7 @@ TagManager:
   - punto
   - objeto
   - vida
+  - nada
   layers:
   - Default
   - TransparentFX
