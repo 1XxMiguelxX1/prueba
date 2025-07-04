@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
             ActualizarPuntosUI();
             ActualizarVidasUI();
         }
+        
+
     }
 
     public void PlayPointSound()
@@ -75,13 +77,26 @@ public class GameManager : MonoBehaviour
             puntosText.text = puntos.ToString();
         }
     }
+
+    private IEnumerator ReiniciarConVidas()
+    {
+        yield return null; // espera 1 frame
+        GameManager.instance.InicializarVidasUI();
+    }
+
+
     public void ReiniciarJuego()
     {
         puntos = 0;
         vidas = 3;
         ActualizarPuntosUI();
         ActualizarVidasUI();
+        
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
+            // Espera un frame para que la escena termine de cargar y luego inicializa las vidas
+            StartCoroutine(ReiniciarConVidas());
+        
     }
 
 
@@ -109,13 +124,24 @@ public class GameManager : MonoBehaviour
 
     void ActualizarVidasUI()
     {
+        if (coeurUI == null || coeurUI.Length == 0)
+        {
+            Debug.LogWarning("coeurUI está vacío, no se pueden actualizar las vidas.");
+            return;
+        }
+
         for (int i = 0; i < coeurUI.Length; i++)
         {
             coeurUI[i].SetActive(i < vidas);
         }
     }
 
- 
- 
+    public void InicializarVidasUI()
+    {
+        coeurUI = GameObject.FindGameObjectsWithTag("VidaUI");
+        ActualizarVidasUI();
+    }
+
+
 
 }

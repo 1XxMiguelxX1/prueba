@@ -10,7 +10,8 @@ public class MuerteController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             playercontroler pc = collision.gameObject.GetComponent<playercontroler>();
-            if (pc.estaMuerto) return;
+            //if (pc.estaMuerto) return;
+            if (pc == null || pc.estaMuerto) return; // no hacer nada si ya está muerto
 
             GameManager.instance.PerderVida();
 

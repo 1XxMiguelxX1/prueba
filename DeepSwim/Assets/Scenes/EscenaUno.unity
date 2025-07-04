@@ -748,7 +748,7 @@ GameObject:
   - component: {fileID: 319502744}
   m_Layer: 5
   m_Name: coeur (1)
-  m_TagString: Untagged
+  m_TagString: VidaUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1539,7 +1539,7 @@ GameObject:
   - component: {fileID: 1046093469}
   m_Layer: 5
   m_Name: coeur (3)
-  m_TagString: Untagged
+  m_TagString: VidaUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2519,7 +2519,7 @@ GameObject:
   - component: {fileID: 1383132449}
   m_Layer: 5
   m_Name: coeur2
-  m_TagString: Untagged
+  m_TagString: VidaUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2714,7 +2714,7 @@ MonoBehaviour:
   - {fileID: 6971770456948094327, guid: 9c476ae960655a840b0986aec8b93212, type: 3}
   - {fileID: 6056977094008683641, guid: 8c32e356cfbfe134e95e8c300884bc0e, type: 3}
   - {fileID: 7182848883075322621, guid: 5d2112d5077b12442b2ad609c4a4be52, type: 3}
-  TiempoSpawn: 0.2
+  TiempoSpawn: 0.16
   minY: -4
   maxY: 15
 --- !u!4 &1440526792
@@ -3813,6 +3813,7 @@ GameObject:
   - component: {fileID: 1979682164}
   - component: {fileID: 1979682163}
   - component: {fileID: 1979682162}
+  - component: {fileID: 1979682165}
   m_Layer: 5
   m_Name: VidasPanel
   m_TagString: Untagged
@@ -3905,6 +3906,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1979682165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979682160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07fa3f34f4454c4ea35d3c03aec343a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corazonPrefab: {fileID: 7182848883075322621, guid: 5d2112d5077b12442b2ad609c4a4be52, type: 3}
+  vidasMaximas: 3
 --- !u!1 &2061811083
 GameObject:
   m_ObjectHideFlags: 0
