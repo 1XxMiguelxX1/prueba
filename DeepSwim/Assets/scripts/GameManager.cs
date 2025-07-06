@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             ActualizarPuntosUI();
             ActualizarVidasUI();
         }
-        
+
 
     }
 
@@ -142,6 +142,17 @@ public class GameManager : MonoBehaviour
         ActualizarVidasUI();
     }
 
+   public void ActualizarReferenciasUI()
+    {
+        // Busca de nuevo todos los corazones con el tag VidasUI
+        coeurUI = GameObject.FindGameObjectsWithTag("VidasUI");
 
+        if (coeurUI.Length == 0)
+        {
+            Debug.LogWarning("No se encontraron objetos con el tag VidasUI en la escena.");
+        }
+
+        ActualizarVidasUI();
+    }
 
 }

@@ -2714,7 +2714,7 @@ MonoBehaviour:
   - {fileID: 6971770456948094327, guid: 9c476ae960655a840b0986aec8b93212, type: 3}
   - {fileID: 6056977094008683641, guid: 8c32e356cfbfe134e95e8c300884bc0e, type: 3}
   - {fileID: 7182848883075322621, guid: 5d2112d5077b12442b2ad609c4a4be52, type: 3}
-  TiempoSpawn: 0.16
+  TiempoSpawn: 0.13
   minY: -4
   maxY: 15
 --- !u!4 &1440526792
