@@ -27,12 +27,38 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Solo en la escena de juego
+        if (scene.name == "EscenaUno")
+        {
+            ActualizarReferenciasUI();
+            ReiniciarJuego();
+        }
+    }
+
+    public void ActualizarReferenciasUI()
+    {
+        puntosText = GameObject.Find("puntosText")?.GetComponent<TMP_Text>();
+        coeurUI = GameObject.FindGameObjectsWithTag("VidasUI");
+
+        if (coeurUI.Length == 0)
+            Debug.LogWarning("No se encontraron corazones en la escena.");
+        if (puntosText == null)
+            Debug.LogWarning("No se encontró puntosText en la escena.");
+
+        ActualizarPuntosUI();
+        ActualizarVidasUI();
+    }
 
     private void Update()
     {
-        puntosText = GameObject.Find("puntosText").GetComponent<TMP_Text>();
+       // puntosText = GameObject.Find("puntosText").GetComponent<TMP_Text>();
     }
 
     ///Audio
@@ -42,48 +68,25 @@ public class GameManager : MonoBehaviour
         {
             audioSource = GetComponent<AudioSource>();
 
-            ActualizarPuntosUI();
-            ActualizarVidasUI();
+           // ActualizarPuntosUI();
+            //ActualizarVidasUI();
         }
 
 
     }
 
-    public void PlayPointSound()
-    {
-        if (pointSound != null)
-            audioSource.PlayOneShot(pointSound);
-    }
-
-    void PlayVidaSound()
-    {
-        if (vidaSound != null)
-            audioSource.PlayOneShot(vidaSound);
-    }
-
-
-    //Puntos
     public void SumarPunto()
     {
-        puntos += 1; 
+        puntos += 1;
         PlayPointSound();
         ActualizarPuntosUI();
     }
+
     void ActualizarPuntosUI()
     {
         if (puntosText != null)
-
-        {
             puntosText.text = puntos.ToString();
-        }
     }
-
-    private IEnumerator ReiniciarConVidas()
-    {
-        yield return null; // espera 1 frame
-        GameManager.instance.InicializarVidasUI();
-    }
-
 
     public void ReiniciarJuego()
     {
@@ -91,23 +94,15 @@ public class GameManager : MonoBehaviour
         vidas = 3;
         ActualizarPuntosUI();
         ActualizarVidasUI();
-        
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-            // Espera un frame para que la escena termine de cargar y luego inicializa las vidas
-            StartCoroutine(ReiniciarConVidas());
-        
     }
 
-
-    //VIdas
     public void PerderVida()
     {
         vidas--;
         ActualizarVidasUI();
+
         if (vidas <= 0)
         {
-            // Matar jugador aquí o llamar a GameOver
             FindAnyObjectByType<GameOver>().MostrarGameOver();
         }
     }
@@ -126,33 +121,26 @@ public class GameManager : MonoBehaviour
     {
         if (coeurUI == null || coeurUI.Length == 0)
         {
-            Debug.LogWarning("coeurUI está vacío, no se pueden actualizar las vidas.");
+            Debug.LogWarning("coeurUI está vacío.");
             return;
         }
 
         for (int i = 0; i < coeurUI.Length; i++)
         {
-            coeurUI[i].SetActive(i < vidas);
+            if (coeurUI[i] != null)
+                coeurUI[i].SetActive(i < vidas);
         }
     }
 
-    public void InicializarVidasUI()
+    void PlayPointSound()
     {
-        coeurUI = GameObject.FindGameObjectsWithTag("VidaUI");
-        ActualizarVidasUI();
+        if (pointSound != null)
+            audioSource.PlayOneShot(pointSound);
     }
 
-   public void ActualizarReferenciasUI()
+    void PlayVidaSound()
     {
-        // Busca de nuevo todos los corazones con el tag VidasUI
-        coeurUI = GameObject.FindGameObjectsWithTag("VidasUI");
-
-        if (coeurUI.Length == 0)
-        {
-            Debug.LogWarning("No se encontraron objetos con el tag VidasUI en la escena.");
-        }
-
-        ActualizarVidasUI();
+        if (vidaSound != null)
+            audioSource.PlayOneShot(vidaSound);
     }
-
 }
