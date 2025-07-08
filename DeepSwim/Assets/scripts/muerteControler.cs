@@ -5,7 +5,7 @@ public class MuerteController : MonoBehaviour
 {
     public float duracionAnimacion = .5f;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -13,7 +13,9 @@ public class MuerteController : MonoBehaviour
             //if (pc.estaMuerto) return;
             if (pc == null || pc.estaMuerto) return; // no hacer nada si ya está muerto
 
+
             GameManager.instance.PerderVida();
+
 
             if (GameManager.instance.vidas <= 0)
             {
@@ -31,6 +33,8 @@ public class MuerteController : MonoBehaviour
                     Debug.Log("Pal loby bb");
                 }
             }
+            // Destruye este obstáculo (para que desaparezca siempre tras tocar al jugador)
+            Destroy(gameObject);
         }
     }
 

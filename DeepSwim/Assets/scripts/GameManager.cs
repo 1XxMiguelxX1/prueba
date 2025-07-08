@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ActualizarVidasUI()
+    public void ActualizarVidasUI()
     {
         if (coeurUI == null || coeurUI.Length == 0)
         {

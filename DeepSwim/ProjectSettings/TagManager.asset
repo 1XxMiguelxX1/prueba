@@ -7,9 +7,9 @@ TagManager:
   - punto
   - objeto
   - vida
-  - nada
-  - VidaUI
   - VidasUI
+  - pisomortal
+  - suelo
   layers:
   - Default
   - TransparentFX
