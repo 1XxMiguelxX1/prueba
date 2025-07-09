@@ -485,7 +485,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d9c1de1927d3d8b47ba17c9ea70c779a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.185
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -603,10 +603,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6352bf2725cd34f41b73d3625fd6c6ee, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -2094,7 +2094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   metrosText: {fileID: 542128425}
-  velocidadMetrosPorSegundo: 5
+  velocidadMetrosPorSegundo: 10
 --- !u!1 &1175094691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2702,19 +2702,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPrefab:
+  - {fileID: 5209489823698457271, guid: 8f3497ef38412694f85390339582c9af, type: 3}
+  - {fileID: 3165106873588540996, guid: 9f4f112e7e5e8914bb92c475c3d3a19e, type: 3}
+  - {fileID: 7182848883075322621, guid: 5d2112d5077b12442b2ad609c4a4be52, type: 3}
   - {fileID: 4802009170622667792, guid: 160f7014583652e47aa7fe9c6ddb742c, type: 3}
-  - {fileID: 4828426095948617459, guid: b1df416dbf873e54f992a044073de6e1, type: 3}
+  - {fileID: 7497588484559419498, guid: 8f158685698bfb941a01ee947fadf2b7, type: 3}
   - {fileID: 7118786677317021816, guid: 6eed2bd2a235de94890dff02f53d19af, type: 3}
   - {fileID: 3534854626718217290, guid: eddb14dbd98d53a46b7cab57850b7a9d, type: 3}
   - {fileID: 292668394952892987, guid: 94f726e67e2f0c64b9a13a51746d39e0, type: 3}
   - {fileID: 7182185049796493001, guid: 4d69742d26228814bad1d04af227529a, type: 3}
   - {fileID: 5284988062500059910, guid: b143e50eec670054cbb8e1cdf373dd15, type: 3}
   - {fileID: 2574250611031260980, guid: f85c0d760320d32458a0d725413087b4, type: 3}
-  - {fileID: 6522884177570363545, guid: cc70472506f8078438d26c709b6fd7e8, type: 3}
   - {fileID: 6971770456948094327, guid: 9c476ae960655a840b0986aec8b93212, type: 3}
   - {fileID: 6056977094008683641, guid: 8c32e356cfbfe134e95e8c300884bc0e, type: 3}
-  - {fileID: 7182848883075322621, guid: 5d2112d5077b12442b2ad609c4a4be52, type: 3}
-  TiempoSpawn: 0.13
+  TiempoSpawn: 0.085
   minY: -4
   maxY: 15
 --- !u!4 &1440526792
