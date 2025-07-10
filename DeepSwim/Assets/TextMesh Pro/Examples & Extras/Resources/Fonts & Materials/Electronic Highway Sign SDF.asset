@@ -601,21 +601,6 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-  - m_Index: 16
-    m_Metrics:
-      m_Width: 76.53125
-      m_Height: 14.203125
-      m_HorizontalBearingX: 7.40625
-      m_HorizontalBearingY: 68.40625
-      m_HorizontalAdvance: 88.15625
-    m_GlyphRect:
-      m_X: 62
-      m_Y: 957
-      m_Width: 77
-      m_Height: 15
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
   - m_Index: 20
     m_Metrics:
       m_Width: 45.25
@@ -628,6 +613,21 @@ MonoBehaviour:
       m_Y: 401
       m_Width: 46
       m_Height: 109
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
+  - m_Index: 16
+    m_Metrics:
+      m_Width: 76.53125
+      m_Height: 14.203125
+      m_HorizontalBearingX: 7.40625
+      m_HorizontalBearingY: 68.40625
+      m_HorizontalAdvance: 88.15625
+    m_GlyphRect:
+      m_X: 62
+      m_Y: 957
+      m_Width: 77
+      m_Height: 15
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
@@ -753,12 +753,12 @@ MonoBehaviour:
     m_GlyphIndex: 19
     m_Scale: 1
   - m_ElementType: 1
-    m_Unicode: 45
-    m_GlyphIndex: 16
-    m_Scale: 1
-  - m_ElementType: 1
     m_Unicode: 49
     m_GlyphIndex: 20
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 45
+    m_GlyphIndex: 16
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: 28981121099961358}
@@ -882,14 +882,14 @@ MonoBehaviour:
     m_Y: 260
     m_Width: 98
     m_Height: 130
-  - m_X: 51
-    m_Y: 946
-    m_Width: 98
-    m_Height: 36
   - m_X: 294
     m_Y: 390
     m_Width: 67
     m_Height: 130
+  - m_X: 51
+    m_Y: 946
+    m_Width: 98
+    m_Height: 36
   m_FreeGlyphRects:
   - m_X: 98
     m_Y: 520
@@ -915,6 +915,10 @@ MonoBehaviour:
     m_Y: 390
     m_Width: 662
     m_Height: 390
+  - m_X: 330
+    m_Y: 520
+    m_Width: 693
+    m_Height: 130
   - m_X: 51
     m_Y: 982
     m_Width: 972
@@ -923,10 +927,6 @@ MonoBehaviour:
     m_Y: 946
     m_Width: 874
     m_Height: 77
-  - m_X: 330
-    m_Y: 520
-    m_Width: 693
-    m_Height: 130
   m_fontInfo:
     Name: Electronic Highway Sign
     PointSize: 144
