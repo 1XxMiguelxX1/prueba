@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEditor.VersionControl;
+//using UnityEditor.VersionControl;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviour
     public int puntos = 0;
     public AudioSource audioSource;
     public AudioClip pointSound;
+    public AudioClip muerteInstantaneaSound;
 
     public int vidas = 3;
     public AudioClip vidaSound;
     public GameObject[] coeurUI;
+
 
 
     private void Awake()
@@ -143,4 +145,18 @@ public class GameManager : MonoBehaviour
         if (vidaSound != null)
             audioSource.PlayOneShot(vidaSound);
     }
+
+    public AudioClip dañoSound;
+
+    public void PlayDañoSound()
+    {
+        if (dañoSound != null)
+            audioSource.PlayOneShot(dañoSound);
+    }
+    public void PlayMuerteInstantaneaSound()
+    {
+        if (muerteInstantaneaSound != null)
+            audioSource.PlayOneShot(muerteInstantaneaSound);
+    }
+
 }

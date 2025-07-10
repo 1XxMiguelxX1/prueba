@@ -485,7 +485,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d9c1de1927d3d8b47ba17c9ea70c779a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.8
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -585,12 +585,14 @@ MonoBehaviour:
   puntos: 0
   audioSource: {fileID: 0}
   pointSound: {fileID: 8300000, guid: d9c1de1927d3d8b47ba17c9ea70c779a, type: 3}
+  muerteInstantaneaSound: {fileID: 8300000, guid: 9230dfb681b702f45bc3c481ae9ef92e, type: 3}
   vidas: 3
   vidaSound: {fileID: 8300000, guid: fd12836b8e061a64cbab09d8bd22fcbd, type: 3}
   coeurUI:
   - {fileID: 319502742}
   - {fileID: 1383132447}
   - {fileID: 1046093467}
+  "da\xF1oSound": {fileID: 8300000, guid: 0527858c9f11ab147aedb71084f07784, type: 3}
 --- !u!82 &215375444
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3479,7 +3481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -357.9, y: 13.4}
+  m_AnchoredPosition: {x: -360.4, y: 6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1755129939

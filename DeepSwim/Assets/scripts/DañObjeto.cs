@@ -35,12 +35,15 @@ public class InstantKill : MonoBehaviour
             // OPCIÓN 2: poner vidas a 0 y actualizar de golpe
             GameManager.instance.vidas = 0;
             GameManager.instance.ActualizarVidasUI();
+            GameManager.instance.PlayMuerteInstantaneaSound();
+
 
             StartCoroutine(DestruirDespuesDeAnimacion(player));
         }
         else
         {
             player.SetActive(false);
+           // GameManager.instance.PlayDañoSound();
 
             GameManager.instance.vidas = 0;
             GameManager.instance.ActualizarVidasUI();

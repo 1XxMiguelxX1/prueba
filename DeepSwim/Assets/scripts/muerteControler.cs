@@ -16,7 +16,7 @@ public class MuerteController : MonoBehaviour
 
             GameManager.instance.PerderVida();
 
-
+            GameManager.instance.PlayDañoSound();
             if (GameManager.instance.vidas <= 0)
             {
                 Animator anim = collision.gameObject.GetComponent<Animator>();
