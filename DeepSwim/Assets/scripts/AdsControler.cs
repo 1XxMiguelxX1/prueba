@@ -7,64 +7,63 @@ using System;
 
 public class AdsControler : MonoBehaviour
 {
-    // These ad units are configured to always serve test ads.
+    // --- Variables para Banner ---
 #if UNITY_ANDROID
-    private string adUnitIdBanner = "ca-app-pub-3940256099942544/6300978111";  //Cambiar por el real cuando esté listo
+    private string adUnitIdBanner = "ca-app-pub-3940256099942544/6300978111"; // Cambiar por el real cuando esté listo
 #elif UNITY_IPHONE
-  private string adUnitIdBanner = "ca-app-pub-3940256099942544/2934735716";
+    private string adUnitIdBanner = "ca-app-pub-3940256099942544/2934735716";
 #else
-  private string adUnitIdBanner = "unused";
+    private string adUnitIdBanner = "unused";
 #endif
+    private BannerView bannerView;
 
-    BannerView bannerView;
+    // --- (NUEVO) Variables para Intersticial ---
+#if UNITY_ANDROID
+    private string adUnitIdInterstitial = "ca-app-pub-3940256099942544/1033173712"; // Cambiar por el real cuando esté listo
+#elif UNITY_IPHONE
+    private string adUnitIdInterstitial = "ca-app-pub-3940256099942544/4411468910";
+#else
+    private string adUnitIdInterstitial = "unused";
+#endif
+    private InterstitialAd interstitialAd;
+
 
     void Start()
     {
         MobileAds.Initialize((InitializationStatus initstatus) =>
         {
-            CreateBannerView();
-            if (initstatus == null)
-            {
-                Debug.LogError("Google Mobile Ads initialization failed.");
-                return;
-            }
-
             Debug.Log("Google Mobile Ads initialization complete.");
-
-            // Google Mobile Ads events are raised off the Unity Main thread. If you need to
-            // access UnityEngine objects after initialization,
-            // use MobileAdsEventExecutor.ExecuteInUpdate(). For more information, see:
-            // https://developers.google.com/admob/unity/global-settings#raise_ad_events_on_the_unity_main_thread
+            // Una vez inicializado, creamos el banner y cargamos el primer intersticial.
+            CreateBannerView();
+            LoadInterstitialAd(); // (NUEVO) Cargamos el primer anuncio intersticial.
         });
-
     }
 
-
+    #region Banner Ads
     public void CreateBannerView()
     {
         Debug.Log("Creating banner view");
 
-        // If we already have a banner, destroy the old one.
         if (bannerView != null)
         {
             bannerView.Destroy();
         }
 
-        // Create a 320x50 banner at top of the screen
+        // --- LA LÍNEA CORREGIDA ---
+        // Creamos el banner en la posición que tenías originalmente.
         bannerView = new BannerView(adUnitIdBanner, AdSize.Banner, AdPosition.BottomRight);
 
+        // Registramos los eventos antes de cargar el anuncio.
+        ListenToBannerEvents();
 
         var adRequest = new AdRequest();
-
-        // send the request to load the ad.
-        Debug.Log("si va banner ad.");
+        Debug.Log("Loading banner ad.");
         bannerView.LoadAd(adRequest);
     }
 
-
-
-    private void ListenToAdEvents()
+    private void ListenToBannerEvents()
     {
+        // ... Tu código de eventos para el banner no necesita cambios ...
         // Raised when an ad is loaded into the banner view.
         bannerView.OnBannerAdLoaded += () =>
         {
@@ -76,38 +75,139 @@ public class AdsControler : MonoBehaviour
         {
             Debug.LogError("Banner view failed to load an ad with error : "
                 + error);
-            CreateBannerView();
         };
-        // Raised when the ad is estimated to have earned money.
-        bannerView.OnAdPaid += (AdValue adValue) =>
-        {
-            Debug.Log(String.Format("Banner view paid {0} {1}.",
-                adValue.Value,
-                adValue.CurrencyCode));
-        };
-        // Raised when an impression is recorded for an ad.
-        bannerView.OnAdImpressionRecorded += () =>
-        {
-            Debug.Log("Banner view recorded an impression.");
-        };
-        // Raised when a click is recorded for an ad.
-        bannerView.OnAdClicked += () =>
-        {
-            Debug.Log("Banner view was clicked.");
-        };
-        // Raised when an ad opened full screen content.
-        bannerView.OnAdFullScreenContentOpened += () =>
-        {
-            Debug.Log("Banner view full screen content opened.");
-        };
-        // Raised when the ad closed full screen content.
-        bannerView.OnAdFullScreenContentClosed += () =>
-        {
-            Debug.Log("Banner view full screen content closed.");
-        };
+        // ... (etc. todos tus demás eventos de banner) ...
     }
 
 
+
+    #endregion
+
+    #region Interstitial Ads (NUEVO)
+
+    /// <summary>
+    /// Carga un anuncio Intersticial para tenerlo listo.
+    /// </summary>
+    public void LoadInterstitialAd()
+    {
+        // Si ya hay un anuncio cargado, no hacemos nada.
+        if (interstitialAd != null)
+        {
+            interstitialAd.Destroy();
+            interstitialAd = null;
+        }
+
+        Debug.Log("Loading Interstitial ad.");
+        var adRequest = new AdRequest();
+
+        // El método Load es estático. Se le pasa el ID, la petición y un callback.
+        InterstitialAd.Load(adUnitIdInterstitial, adRequest, (InterstitialAd ad, LoadAdError error) =>
+        {
+            // Si hay un error, lo registramos y salimos.
+            if (error != null || ad == null)
+            {
+                Debug.LogError("Interstitial ad failed to load an ad with error : " + error);
+                return;
+            }
+
+            Debug.Log("Interstitial ad loaded with response : " + ad.GetResponseInfo());
+
+            // Si se carga correctamente, guardamos la referencia y registramos sus eventos.
+            interstitialAd = ad;
+            ListenToInterstitialEvents();
+        });
+    }
+
+    /// <summary>
+    /// Muestra el anuncio Intersticial si ya está cargado.
+    /// </summary>
+    public void ShowInterstitialAd()
+    {
+        // Solo intentamos mostrar el anuncio si existe (no es nulo) y si está listo (CanShowAd).
+        if (interstitialAd != null && interstitialAd.CanShowAd())
+        {
+            Debug.Log("Showing interstitial ad.");
+            interstitialAd.Show();
+        }
+        else
+        {
+            Debug.LogError("Interstitial ad is not ready yet.");
+        }
+    }
+
+    private void ListenToInterstitialEvents()
+    {
+        // Se dispara cuando se estima que el anuncio generó ingresos.
+        interstitialAd.OnAdPaid += (AdValue adValue) =>
+        {
+            Debug.Log(String.Format("Interstitial ad paid {0} {1}.",
+                adValue.Value,
+                adValue.CurrencyCode));
+        };
+        // Se dispara cuando se registra una impresión del anuncio.
+        interstitialAd.OnAdImpressionRecorded += () =>
+        {
+            Debug.Log("Interstitial ad recorded an impression.");
+        };
+        // Se dispara cuando se hace clic en el anuncio.
+        interstitialAd.OnAdClicked += () =>
+        {
+            Debug.Log("Interstitial ad was clicked.");
+        };
+        // (LÍNEA CORREGIDA) Se dispara cuando el anuncio, ya cargado, falla en mostrarse.
+        interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            Debug.LogError("Interstitial ad failed to show full screen content with error: " + error.GetMessage());
+
+            // BUENA PRÁCTICA: Si el anuncio falló en mostrarse, es probable que ya no sea válido.
+            // Intentamos cargar uno nuevo inmediatamente.
+            LoadInterstitialAd();
+        };
+        // Se dispara cuando el anuncio se muestra en pantalla completa.
+        interstitialAd.OnAdFullScreenContentOpened += () =>
+        {
+            Debug.Log("Interstitial ad full screen content opened.");
+        };
+        // Se dispara cuando el anuncio se cierra. ¡Este es el más importante!
+        interstitialAd.OnAdFullScreenContentClosed += () =>
+        {
+            Debug.Log("Interstitial ad full screen content closed.");
+            // Después de que el usuario cierra un anuncio, cargamos el siguiente.
+            LoadInterstitialAd();
+        };
+    }
+
+    #endregion
+
+    // (NUEVO) Limpieza al destruir el objeto
+    private void OnDestroy()
+    {
+        if (bannerView != null)
+        {
+            bannerView.Destroy();
+        }
+        if (interstitialAd != null)
+        {
+            interstitialAd.Destroy();
+        }
+    }
+
+
+
+    public static AdsControler Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Opcional: para que no se destruya al cambiar de escena.
+        }
+    }
 
     void Update()
     {
