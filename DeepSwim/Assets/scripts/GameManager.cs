@@ -100,12 +100,20 @@ public class GameManager : MonoBehaviour
 
     public void PerderVida()
     {
+        if (FindObjectOfType<playercontroler>().estaMuerto) return; // Evitar perder vidas si ya está muriendo
+
         vidas--;
         ActualizarVidasUI();
+        PlayDañoSound();
 
         if (vidas <= 0)
         {
-            FindAnyObjectByType<GameOver>().MostrarGameOver();
+            // Buscamos al jugador y le decimos que inicie la secuencia de muerte
+            playercontroler jugador = FindObjectOfType<playercontroler>();
+            if (jugador != null)
+            {
+                jugador.Morir();
+            }
         }
     }
 
@@ -131,6 +139,18 @@ public class GameManager : MonoBehaviour
         {
             if (coeurUI[i] != null)
                 coeurUI[i].SetActive(i < vidas);
+        }
+    }
+
+    public void Cmuere()
+    {
+        playercontroler jugador = FindObjectOfType<playercontroler>();
+        if (jugador != null && !jugador.estaMuerto)
+        {
+            vidas = 0; // Ponemos las vidas a 0
+            ActualizarVidasUI();
+            PlayMuerteInstantaneaSound(); // O el sonido de daño que prefieras
+            jugador.Morir(); // Le decimos al jugador que inicie su secuencia de muerte
         }
     }
 

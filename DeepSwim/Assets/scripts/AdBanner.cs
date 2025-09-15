@@ -3,7 +3,7 @@ using UnityEngine;
 using GoogleMobileAds.Api;
 
 // El nombre del archivo debe ser AdBannnerBehaviour.cs
-public class AdBannnerBehaviour : MonoBehaviour // <--- ¡LA CORRECCIÓN CLAVE ESTÁ AQUÍ!
+public class AdBannnerBehaviour : MonoBehaviour 
 {
     // For Banner
 #if UNITY_ANDROID

@@ -3,47 +3,18 @@ using UnityEngine;
 
 public class MuerteController : MonoBehaviour
 {
-    public float duracionAnimacion = .5f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             playercontroler pc = collision.gameObject.GetComponent<playercontroler>();
-            //if (pc.estaMuerto) return;
-            if (pc == null || pc.estaMuerto) return; // no hacer nada si ya está muerto
-
+            if (pc == null || pc.estaMuerto || pc.esInvencible) return;
 
             GameManager.instance.PerderVida();
-
-            GameManager.instance.PlayDañoSound();
-            if (GameManager.instance.vidas <= 0)
-            {
-                Animator anim = collision.gameObject.GetComponent<Animator>();
-                if (anim != null)
-                {
-                    pc.estaMuerto = true;
-                    anim.SetTrigger("muerte");
-                    StartCoroutine(DestruirDespuesDeAnimacion(collision.gameObject));
-                }
-                else
-                {
-                    Destroy(collision.gameObject);
-                    FindAnyObjectByType<GameOver>().MostrarGameOver();
-                    Debug.Log("Pal loby bb");
-                }
-            }
-            // Destruye este obstáculo (para que desaparezca siempre tras tocar al jugador)
+            // Ya no hay 'Destroy()' para el jugador. El obstáculo sí se puede destruir a sí mismo.
             Destroy(gameObject);
         }
-    }
-
-    private IEnumerator DestruirDespuesDeAnimacion(GameObject objeto)
-    {
-        yield return new WaitForSeconds(duracionAnimacion);
-        Destroy(objeto);
-        Debug.Log("Game Over");
-        FindAnyObjectByType<GameOver>().MostrarGameOver();
     }
 }
 

@@ -35,8 +35,16 @@ public class metraje : MonoBehaviour
         estaJugando = false;
     }
 
+    // --- NUEVO MÉTODO ---
+    public void Reanudar()
+    {
+        estaJugando = true;
+    }
+    // -------------------
+
     public int GetDistancia()
     {
         return Mathf.FloorToInt(distancia);
     }
+
 }
