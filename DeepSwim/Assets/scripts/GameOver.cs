@@ -19,16 +19,27 @@ public class GameOver : MonoBehaviour
     public void MostrarGameOver()
     {
         gameOverPanel.SetActive(true);
+        // ... (código para mostrar puntos y metros)
 
-        puntosText.text = "Puntos: " + GameManager.instance.puntos;
+        // --- LÓGICA DEL LÍMITE DE RECOMPENSAS ---
+        // Verificamos si el jugador ha visto menos de 3 recompensas
+        Debug.Log("Mostrando Game Over. Recompensas vistas hasta ahora: " + GameManager.instance.recompensasVistas);
 
-        // Detenemos el contador de metros y mostramos la distancia final
-        if (distanciaRecorrida != null)
+        if (GameManager.instance.recompensasVistas < 3)
         {
-            distanciaRecorrida.Detener();
-            metrosText.text = "Metros: " + distanciaRecorrida.GetDistancia();
+            // Si es así, mostramos el botón y lo hacemos interactuable
+            botonRecompensa.gameObject.SetActive(true); 
+            botonRecompensa.interactable = true;
+            Debug.Log($"Recompensas vistas: {GameManager.instance.recompensasVistas}. Mostrando botón.");
         }
-        AdsController.instance.ShowInterstitialAd();
+        else
+        {
+            // Si ya vio 3, ocultamos el botón por completo
+            botonRecompensa.gameObject.SetActive(false);
+            Debug.Log($"Límite de recompensas alcanzado. Ocultando botón.");
+        }
+        AdsController.instance.ShowInterstitialAd(); 
+
     }
 
     public void ReiniciarJuego()
@@ -47,7 +58,8 @@ public class GameOver : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void OnBotonRecompensaClick()
+
+    public void OnbotonRecompensaClick()
     {
         if (botonRecompensa != null)
         {
@@ -56,7 +68,9 @@ public class GameOver : MonoBehaviour
 
         AdsController.instance.ShowRewardedAd((Reward reward) =>
         {
-            // El jugador vio el anuncio, ¡a revivir!
+            // Le decimos al GameManager que registre que ya se vio una recompensa.
+            GameManager.instance.IncrementarRecompensasVistas();
+            // ---------------------------------------------------------
 
             // 1. Damos la vida extra.
             GameManager.instance.GanarVida();
@@ -76,7 +90,9 @@ public class GameOver : MonoBehaviour
             {
                 jugador.Revivir();
             }
-        });
 
+        });
     }
+
+
 }

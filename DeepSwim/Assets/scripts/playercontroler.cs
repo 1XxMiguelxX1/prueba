@@ -77,11 +77,21 @@ public class playercontroler : MonoBehaviour
 
         if (animator != null)
         {
-            animator.Play("statique"); // Forzamos el estado visual correcto
+            // 1. (Buena práctica) "Limpiamos" el trigger de muerte por si se quedó "atascado".
+            animator.ResetTrigger("muerte");
+
+            // 2. Reseteamos los booleanos para que no intente moverse solo.
+            animator.SetBool("subida", false);
+            animator.SetBool("bajada", false);
+
+            // 3. Forzamos la reproducción de "statique" desde su inicio (frame 0).
+            //    Esta es la forma más robusta de reiniciar un estado del Animator.
+            animator.Play("statique", -1, 0f);
         }
 
         StartCoroutine(RutinaDeInvencibilidad());
     }
+
 
     private IEnumerator RutinaDeInvencibilidad()
     {

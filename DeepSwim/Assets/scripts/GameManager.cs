@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int vidas = 3;
     public AudioClip vidaSound;
     public GameObject[] coeurUI;
+    public int recompensasVistas = 0;
 
 
 
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
         if (coeurUI.Length == 0)
             Debug.LogWarning("No se encontraron corazones en la escena.");
         if (puntosText == null)
-            Debug.LogWarning("No se encontró puntosText en la escena.");
+            Debug.LogWarning("No se encontrÃ³ puntosText en la escena.");
 
         ActualizarPuntosUI();
         ActualizarVidasUI();
@@ -69,12 +70,9 @@ public class GameManager : MonoBehaviour
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
-
            // ActualizarPuntosUI();
             //ActualizarVidasUI();
         }
-
-
     }
 
     public void SumarPunto()
@@ -94,17 +92,18 @@ public class GameManager : MonoBehaviour
     {
         puntos = 0;
         vidas = 3;
+        recompensasVistas = 0; // ðŸ”„ Reiniciamos el contador
         ActualizarPuntosUI();
         ActualizarVidasUI();
     }
 
     public void PerderVida()
     {
-        if (FindObjectOfType<playercontroler>().estaMuerto) return; // Evitar perder vidas si ya está muriendo
+        if (FindObjectOfType<playercontroler>().estaMuerto) return; // Evitar perder vidas si ya estÃ¡ muriendo
 
         vidas--;
         ActualizarVidasUI();
-        PlayDañoSound();
+        PlayDaÃ±oSound();
 
         if (vidas <= 0)
         {
@@ -131,7 +130,7 @@ public class GameManager : MonoBehaviour
     {
         if (coeurUI == null || coeurUI.Length == 0)
         {
-            Debug.LogWarning("coeurUI está vacío.");
+            Debug.LogWarning("coeurUI estÃ¡ vacÃ­o.");
             return;
         }
 
@@ -142,6 +141,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void IncrementarRecompensasVistas()
+    {
+        recompensasVistas++;
+    }
+
     public void Cmuere()
     {
         playercontroler jugador = FindObjectOfType<playercontroler>();
@@ -149,10 +153,12 @@ public class GameManager : MonoBehaviour
         {
             vidas = 0; // Ponemos las vidas a 0
             ActualizarVidasUI();
-            PlayMuerteInstantaneaSound(); // O el sonido de daño que prefieras
+            PlayMuerteInstantaneaSound(); // O el sonido de daÃ±o que prefieras
             jugador.Morir(); // Le decimos al jugador que inicie su secuencia de muerte
         }
     }
+
+
 
     void PlayPointSound()
     {
@@ -166,12 +172,12 @@ public class GameManager : MonoBehaviour
             audioSource.PlayOneShot(vidaSound);
     }
 
-    public AudioClip dañoSound;
+    public AudioClip daÃ±oSound;
 
-    public void PlayDañoSound()
+    public void PlayDaÃ±oSound()
     {
-        if (dañoSound != null)
-            audioSource.PlayOneShot(dañoSound);
+        if (daÃ±oSound != null)
+            audioSource.PlayOneShot(daÃ±oSound);
     }
     public void PlayMuerteInstantaneaSound()
     {

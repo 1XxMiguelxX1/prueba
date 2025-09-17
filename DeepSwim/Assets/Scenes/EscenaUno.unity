@@ -593,6 +593,7 @@ MonoBehaviour:
   - {fileID: 319502742}
   - {fileID: 1383132447}
   - {fileID: 1046093467}
+  recompensasVistas: 0
   "da\xF1oSound": {fileID: 8300000, guid: 0527858c9f11ab147aedb71084f07784, type: 3}
 --- !u!82 &215375444
 AudioSource:
@@ -1286,7 +1287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -347.8, y: 2.7000122}
+  m_AnchoredPosition: {x: -347.8, y: 2.7000275}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &542128425
@@ -1792,7 +1793,7 @@ MonoBehaviour:
   metrosText: {fileID: 542128425}
   gameOverPanel: {fileID: 1071359882}
   distanciaRecorrida: {fileID: 1159658201}
-  botonRecompensa: {fileID: 0}
+  botonRecompensa: {fileID: 1806842200}
 --- !u!1 &1046093467
 GameObject:
   m_ObjectHideFlags: 0
@@ -3848,7 +3849,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 233451713}
         m_TargetAssemblyTypeName: GameOver, Assembly-CSharp
-        m_MethodName: OnBotonRecompensaClick
+        m_MethodName: OnbotonRecompensaClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
