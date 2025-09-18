@@ -23,20 +23,17 @@ public class GameOver : MonoBehaviour
 
         // --- LÓGICA DEL LÍMITE DE RECOMPENSAS ---
         // Verificamos si el jugador ha visto menos de 3 recompensas
-        Debug.Log("Mostrando Game Over. Recompensas vistas hasta ahora: " + GameManager.instance.recompensasVistas);
 
         if (GameManager.instance.recompensasVistas < 3)
         {
             // Si es así, mostramos el botón y lo hacemos interactuable
             botonRecompensa.gameObject.SetActive(true); 
             botonRecompensa.interactable = true;
-            Debug.Log($"Recompensas vistas: {GameManager.instance.recompensasVistas}. Mostrando botón.");
         }
         else
         {
             // Si ya vio 3, ocultamos el botón por completo
             botonRecompensa.gameObject.SetActive(false);
-            Debug.Log($"Límite de recompensas alcanzado. Ocultando botón.");
         }
         AdsController.instance.ShowInterstitialAd(); 
 
@@ -70,10 +67,9 @@ public class GameOver : MonoBehaviour
         {
             // Le decimos al GameManager que registre que ya se vio una recompensa.
             GameManager.instance.IncrementarRecompensasVistas();
-            // ---------------------------------------------------------
-
             // 1. Damos la vida extra.
             GameManager.instance.GanarVida();
+            GameManager.instance.ReanudarMusica();
 
             // 2. Ocultamos este panel de Game Over.
             gameOverPanel.SetActive(false);

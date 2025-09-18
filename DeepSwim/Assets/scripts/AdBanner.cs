@@ -22,15 +22,12 @@ public class AdBannnerBehaviour : MonoBehaviour
         // Si este es tu único script de anuncios, déjalo. Si tienes otro, es mejor centralizar la inicialización.
         MobileAds.Initialize((InitializationStatus initstatus) =>
         {
-            Debug.Log("Google Mobile Ads initialization complete.");
             CreateBannerView();
         });
     }
 
     public void CreateBannerView()
     {
-        Debug.Log("Creating banner view");
-
         if (bannerView != null)
         {
             bannerView.Destroy();
@@ -42,7 +39,6 @@ public class AdBannnerBehaviour : MonoBehaviour
         ListenToAdEvents();
 
         var adRequest = new AdRequest();
-        Debug.Log("Loading banner ad.");
         bannerView.LoadAd(adRequest);
     }
 
@@ -51,7 +47,6 @@ public class AdBannnerBehaviour : MonoBehaviour
         // Raised when an ad is loaded into the banner view.
         bannerView.OnBannerAdLoaded += () =>
         {
-            Debug.Log("Banner view loaded an ad with response : " + bannerView.GetResponseInfo());
         };
 
         // Raised when an ad fails to load into the banner view.

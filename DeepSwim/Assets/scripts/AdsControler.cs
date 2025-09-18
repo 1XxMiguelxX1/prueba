@@ -94,7 +94,6 @@ public class AdsController : MonoBehaviour
     {
         ad.OnAdFullScreenContentClosed += () =>
         {
-            Debug.Log("Interstitial ad closed.");
             // Volvemos a cargar otro anuncio para la próxima vez.
             LoadInterstitialAd();
         };
@@ -125,7 +124,6 @@ public class AdsController : MonoBehaviour
     {
         if (rewardedAd != null && rewardedAd.CanShowAd())
         {
-            Debug.Log("Showing rewarded ad.");
             rewardedAd.Show(onUserEarnedReward);
         }
         else
