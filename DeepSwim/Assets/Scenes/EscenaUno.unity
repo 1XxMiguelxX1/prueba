@@ -585,6 +585,7 @@ MonoBehaviour:
   puntosText: {fileID: 1755129939}
   puntos: 0
   audioSource: {fileID: 0}
+  chanson: {fileID: 0}
   pointSound: {fileID: 8300000, guid: d9c1de1927d3d8b47ba17c9ea70c779a, type: 3}
   muerteInstantaneaSound: {fileID: 8300000, guid: 9230dfb681b702f45bc3c481ae9ef92e, type: 3}
   vidas: 3
@@ -724,7 +725,7 @@ MonoBehaviour:
   metrosText: {fileID: 542128425}
   gameOverPanel: {fileID: 1037548792}
   distanciaRecorrida: {fileID: 1159658201}
-  botonRecompensa: {fileID: 0}
+  botonRecompensa: {fileID: 1806842200}
 --- !u!4 &233451714
 Transform:
   m_ObjectHideFlags: 0
@@ -1287,7 +1288,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -347.8, y: 2.7000275}
+  m_AnchoredPosition: {x: -347.8, y: 2.7000122}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &542128425
