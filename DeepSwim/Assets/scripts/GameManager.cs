@@ -1,29 +1,31 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-//using UnityEditor.VersionControl;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+    [Header("UI y Puntos")]
     public TMP_Text puntosText;
     public int puntos = 0;
-    public AudioSource audioSource;
-    public AudioSource chanson;
+
+    [Header("Audio")]
+    public AudioSource audioSource;   // Para efectos
     public AudioClip pointSound;
     public AudioClip muerteInstantaneaSound;
-
-    private bool partidaPausada = false;
-    public int vidas = 3;
     public AudioClip vidaSound;
+    public AudioClip dañoSound;
+
+    [Header("Vidas")]
+    public int vidas = 3;
     public GameObject[] coeurUI;
     public int recompensasVistas = 0;
 
+    private bool partidaPausada = false;
 
     private void Awake()
-
     {
         if (instance != null && instance != this)
         {
@@ -35,128 +37,66 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-
-    {
-        if (scene.name == "EscenaUno")
-
-        {
-            ActualizarReferenciasUI();
-            ReiniciarJuego();
-        }
-    }
-
-
-    public void ActualizarReferenciasUI()
-
-    {
-        puntosText = GameObject.Find("puntosText")?.GetComponent<TMP_Text>();
-        coeurUI = GameObject.FindGameObjectsWithTag("VidasUI");
-
-        if (coeurUI.Length == 0)
-        if (puntosText == null)
-
-            Debug.LogWarning("No se encontró puntosText en la escena.");
-
-        ActualizarPuntosUI();
-        ActualizarVidasUI();
-    }
-
-    ///Audio
-
-    void Start()
-
+    private void Start()
     {
         if (audioSource == null)
-
-        {
             audioSource = GetComponent<AudioSource>();
-            // ActualizarPuntosUI();
-            //ActualizarVidasUI();
-        }
-        if (chanson != null && !chanson.isPlaying)
-        {
-            chanson.Play();
-        }
+
+        // Inicia música de fondo para la escena actual
+        musica.instance?.ReproducirCancionActual();
     }
 
-    public void SumarPunto()
-
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        puntos += 1;
+        ActualizarReferenciasUI();
+        ReiniciarJuego();
+    }
+
+    // ----------------- PUNTOS -----------------
+    public void SumarPunto()
+    {
+        puntos++;
         PlayPointSound();
         ActualizarPuntosUI();
     }
 
     void ActualizarPuntosUI()
-
     {
         if (puntosText != null)
             puntosText.text = puntos.ToString();
     }
 
-    public void ReiniciarJuego()
-    {
-        puntos = 0;
-        vidas = 3;
-        recompensasVistas = 0;
-        partidaPausada = false; // También es bueno reiniciar esta variable
-
-        // Detenemos cualquier música anterior y la volvemos a empezar.
-        if (chanson != null)
-        {
-            chanson.Stop();
-            chanson.Play();
-        }
-        // ----------------------
-
-        ActualizarPuntosUI();
-        ActualizarVidasUI();
-    }
-
-
+    // ----------------- VIDAS -----------------
     public void PerderVida()
-
     {
-        if (FindObjectOfType<playercontroler>().estaMuerto) return; // Evitar perder vidas si ya está muriendo
-        vidas--;
+        playercontroler jugador = FindObjectOfType<playercontroler>();
+        if (jugador != null && jugador.estaMuerto) return;
+
+        vidas--;
         ActualizarVidasUI();
         PlayDañoSound();
+
         if (vidas <= 0)
         {
-            if (chanson != null)
-            {
-                chanson.Pause(); // Pausa la música.
-                partidaPausada = true;
-            }
-
-            playercontroler jugador = FindObjectOfType<playercontroler>();
+            PausarMusica();
             if (jugador != null)
-            {
                 jugador.Morir();
-            }
         }
     }
 
     public void GanarVida()
-
     {
         if (vidas < coeurUI.Length)
-
         {
             vidas++;
             PlayVidaSound();
             ActualizarVidasUI();
         }
-
     }
 
     public void ActualizarVidasUI()
-
     {
-
         if (coeurUI == null || coeurUI.Length == 0)
-
         {
             Debug.LogWarning("coeurUI está vacío.");
             return;
@@ -169,12 +109,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void IncrementarRecompensasVistas()
-
-    {
-        recompensasVistas++;
-    }
-
     public void Cmuere()
     {
         playercontroler jugador = FindObjectOfType<playercontroler>();
@@ -183,56 +117,58 @@ public class GameManager : MonoBehaviour
             vidas = 0;
             ActualizarVidasUI();
             PlayMuerteInstantaneaSound();
-
-            if (chanson != null)
-            {
-                chanson.Pause(); // Pausa la música.
-                partidaPausada = true;
-            }
-
+            PausarMusica();
             jugador.Morir();
         }
-}
-
-    void PlayPointSound()
-
-    {
-        if (pointSound != null)
-            audioSource.PlayOneShot(pointSound);
     }
 
-    void PlayVidaSound()
-
+    public void IncrementarRecompensasVistas()
     {
-        if (vidaSound != null)
-           audioSource.PlayOneShot(vidaSound);
+        recompensasVistas++;
     }
 
-    public AudioClip dañoSound;
-
-    public void PlayDañoSound()
-
+    // ----------------- REINICIO -----------------
+    public void ReiniciarJuego()
     {
-        if (dañoSound != null)
-            audioSource.PlayOneShot(dañoSound);
+        puntos = 0;
+        vidas = 3;
+        recompensasVistas = 0;
+        partidaPausada = false;
+
+        ActualizarPuntosUI();
+        ActualizarVidasUI();
+
+        // Reinicia música
+        musica.instance?.ReproducirCancionActual();
     }
 
-    public void PlayMuerteInstantaneaSound()
-
+    public void ActualizarReferenciasUI()
     {
-        if (muerteInstantaneaSound != null)
-            audioSource.PlayOneShot(muerteInstantaneaSound);
+        puntosText = GameObject.Find("puntosText")?.GetComponent<TMP_Text>();
+        coeurUI = GameObject.FindGameObjectsWithTag("VidasUI");
+
+        if (puntosText == null)
+            Debug.LogWarning("No se encontró puntosText en la escena.");
+
+        ActualizarPuntosUI();
+        ActualizarVidasUI();
+    }
+
+    // ----------------- AUDIO -----------------
+    void PlayPointSound() { if (pointSound != null) audioSource.PlayOneShot(pointSound); }
+    void PlayVidaSound() { if (vidaSound != null) audioSource.PlayOneShot(vidaSound); }
+    public void PlayDañoSound() { if (dañoSound != null) audioSource.PlayOneShot(dañoSound); }
+    public void PlayMuerteInstantaneaSound() { if (muerteInstantaneaSound != null) audioSource.PlayOneShot(muerteInstantaneaSound); }
+
+    public void PausarMusica()
+    {
+        musica.instance?.Pausar();
+        partidaPausada = true;
     }
 
     public void ReanudarMusica()
     {
-        // Método seguro para reanudar la música solo si fue pausada por un Game Over.
-        if (partidaPausada && chanson != null)
-        {
-            chanson.Play(); // "Play" en un audio pausado lo reanuda.
-            partidaPausada = false;
-        }
+        musica.instance?.Reanudar();
+        partidaPausada = false;
     }
-
-
 }
