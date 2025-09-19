@@ -90,6 +90,10 @@ public class playercontroler : MonoBehaviour
         }
 
         StartCoroutine(RutinaDeInvencibilidad());
+
+        // Reanudar música y metros
+        GameManager.instance.ReanudarMusica();
+        FindObjectOfType<metraje>()?.Reanudar();
     }
 
 

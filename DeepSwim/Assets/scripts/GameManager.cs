@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     void ActualizarPuntosUI()
     {
         if (puntosText != null)
-            puntosText.text = puntos.ToString();
+            puntosText.text = "Puntos: " + puntos.ToString();
     }
 
     // ----------------- VIDAS -----------------
@@ -79,8 +79,10 @@ public class GameManager : MonoBehaviour
         if (vidas <= 0)
         {
             PausarMusica();
+            FindObjectOfType<metraje>()?.Detener(); // Pausa los metros
+
             if (jugador != null)
-                jugador.Morir();
+                jugador.Morir(); // Aquí solo usamos la variable ya declarada
         }
     }
 
@@ -117,10 +119,14 @@ public class GameManager : MonoBehaviour
             vidas = 0;
             ActualizarVidasUI();
             PlayMuerteInstantaneaSound();
+
             PausarMusica();
+            FindObjectOfType<metraje>()?.Detener(); // Pausa los metros
+
             jugador.Morir();
         }
     }
+
 
     public void IncrementarRecompensasVistas()
     {
@@ -135,12 +141,14 @@ public class GameManager : MonoBehaviour
         recompensasVistas = 0;
         partidaPausada = false;
 
+
         ActualizarPuntosUI();
         ActualizarVidasUI();
 
         // Reinicia música
         musica.instance?.ReproducirCancionActual();
     }
+
 
     public void ActualizarReferenciasUI()
     {
