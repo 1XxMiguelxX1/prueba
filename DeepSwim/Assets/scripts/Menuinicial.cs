@@ -5,6 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MenuInicial : MonoBehaviour
 {
+    public GameObject menuInicial;
+    public GameObject creditos;
+
+    public void OpenCreditosPanel()
+    { 
+    menuInicial.SetActive(false);
+        creditos.SetActive(true);
+    }
+
+    public void OpenMenuPanel()
+    {
+        menuInicial.SetActive(true);
+        creditos.SetActive(false);
+    }
     public void Jugar()
     {
         SceneManager.LoadScene("EscenaUno");
