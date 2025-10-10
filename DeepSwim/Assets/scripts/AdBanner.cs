@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 using GoogleMobileAds.Api;
 
-// El nombre del archivo debe ser AdBannnerBehaviour.cs
-public class AdBannnerBehaviour : MonoBehaviour 
+// El nombre del archivo debe ser AdBannerBehaviour.cs
+public class AdBannerBehaviour : MonoBehaviour
 {
     // For Banner
 #if UNITY_ANDROID
@@ -38,6 +38,7 @@ public class AdBannnerBehaviour : MonoBehaviour
         // (AJUSTE IMPORTANTE) Llamamos al método para registrar los eventos.
         ListenToAdEvents();
 
+        // En el nuevo SDK ya no se usa "AdRequest.Builder()"
         var adRequest = new AdRequest();
         bannerView.LoadAd(adRequest);
     }
@@ -47,6 +48,7 @@ public class AdBannnerBehaviour : MonoBehaviour
         // Raised when an ad is loaded into the banner view.
         bannerView.OnBannerAdLoaded += () =>
         {
+            Debug.Log("Banner loaded successfully!");
         };
 
         // Raised when an ad fails to load into the banner view.
@@ -55,7 +57,7 @@ public class AdBannnerBehaviour : MonoBehaviour
             Debug.LogError("Banner view failed to load an ad with error : " + error);
         };
 
-        // ... aquí van el resto de tus eventos (OnAdClicked, etc.) ...
+        // Puedes añadir más eventos si lo necesitas (OnAdClicked, etc.)
     }
 
     // Es buena práctica limpiar el banner cuando el objeto se destruye.

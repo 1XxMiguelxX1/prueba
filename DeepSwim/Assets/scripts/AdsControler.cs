@@ -23,7 +23,6 @@ public class AdsController : MonoBehaviour
     private RewardedAd rewardedAd;
 
     // --- Estado de Inicialización ---
-    // Esta variable pública nos dirá si el SDK está listo.
     public bool IsInitialized { get; private set; }
 
     private void Awake()
@@ -46,7 +45,7 @@ public class AdsController : MonoBehaviour
         MobileAds.Initialize((InitializationStatus initStatus) =>
         {
             Debug.Log("AdsController: Google Mobile Ads initialization complete.");
-            IsInitialized = true; // Marcamos como listo.
+            IsInitialized = true;
 
             // Precargamos los anuncios para que estén listos cuando se necesiten.
             LoadInterstitialAd();
@@ -64,13 +63,15 @@ public class AdsController : MonoBehaviour
         }
 
         var adRequest = new AdRequest();
-        InterstitialAd.Load(interstitialUnitId, adRequest, (ad, error) =>
+        InterstitialAd.Load(interstitialUnitId, adRequest, (InterstitialAd ad, LoadAdError error) =>
         {
             if (error != null || ad == null)
             {
                 Debug.LogError("Interstitial ad failed to load with error: " + error);
                 return;
             }
+
+            Debug.Log("Interstitial ad loaded successfully.");
             interstitialAd = ad;
             RegisterInterstitialEventHandlers(interstitialAd);
         });
@@ -86,7 +87,7 @@ public class AdsController : MonoBehaviour
         else
         {
             Debug.LogError("Interstitial ad is not ready yet.");
-            LoadInterstitialAd(); // Intentar cargarlo de nuevo.
+            LoadInterstitialAd();
         }
     }
 
@@ -94,8 +95,13 @@ public class AdsController : MonoBehaviour
     {
         ad.OnAdFullScreenContentClosed += () =>
         {
-            // Volvemos a cargar otro anuncio para la próxima vez.
+            Debug.Log("Interstitial closed, reloading...");
             LoadInterstitialAd();
+        };
+
+        ad.OnAdFullScreenContentFailed += (AdError error) =>
+        {
+            Debug.LogError("Interstitial failed to show: " + error);
         };
     }
 
@@ -109,13 +115,15 @@ public class AdsController : MonoBehaviour
         }
 
         var adRequest = new AdRequest();
-        RewardedAd.Load(rewardedUnitId, adRequest, (ad, error) =>
+        RewardedAd.Load(rewardedUnitId, adRequest, (RewardedAd ad, LoadAdError error) =>
         {
             if (error != null || ad == null)
             {
                 Debug.LogError("Rewarded ad failed to load with error: " + error);
                 return;
             }
+
+            Debug.Log("Rewarded ad loaded successfully.");
             rewardedAd = ad;
         });
     }
@@ -129,7 +137,7 @@ public class AdsController : MonoBehaviour
         else
         {
             Debug.LogError("Rewarded ad is not ready yet.");
-            LoadRewardedAd(); // Intentar cargarlo de nuevo.
+            LoadRewardedAd();
         }
     }
 }
