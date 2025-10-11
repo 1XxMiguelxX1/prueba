@@ -7,7 +7,7 @@ public class AdBannerBehaviour : MonoBehaviour
 {
     // For Banner
 #if UNITY_ANDROID
-    private string adUnitIdBanner = "ca-app-pub-3940256099942544/6300978111";
+    private string adUnitIdBanner = "ca - app - pub - 3940256099942544 / 6300978111";
 #elif UNITY_IPHONE
     private string adUnitIdBanner = "ca-app-pub-3940256099942544/2934735716";
 #else
