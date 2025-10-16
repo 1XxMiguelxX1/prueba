@@ -180,7 +180,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Programaci\xF3n, Arte y Dise\xF1o:\n\n\n\n\n\n\nArte y Sprites 2D\r\n\n\n\n\n\n\n\n\nM\xFAsica\r\n\n\n\n\n\n\n\nSonidos
-    Ambientales y de Efectos\r\n\n\n\n\n\nCon cari\xF1o\nMiguel, Rivka y Fercha \U0001F60E"
+    Ambientales y de Efectos\r\n\n\n\n\nCon cari\xF1o\nMiguel, Rivka y Fercha \U0001F60E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 54b1421ef4106be479ab50924e52eab6, type: 2}
   m_sharedMaterial: {fileID: 8125709438041393492, guid: 54b1421ef4106be479ab50924e52eab6, type: 2}
@@ -6345,7 +6345,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V 3.2.4-beta
+  m_text: V 3.2.5-beta
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
