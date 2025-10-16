@@ -7,6 +7,8 @@ public class MenuInicial : MonoBehaviour
 {
     public GameObject menuInicial;
     public GameObject creditos;
+    public GameObject juegoSelect;
+
 
     public void OpenCreditosPanel()
     { 
@@ -18,7 +20,16 @@ public class MenuInicial : MonoBehaviour
     {
         menuInicial.SetActive(true);
         creditos.SetActive(false);
+        juegoSelect.SetActive(false);
     }
+
+
+    public void juego1_2()
+    {
+        menuInicial.SetActive(false);
+        juegoSelect.SetActive(true);
+    }
+
     public void Jugar()
     {
         SceneManager.LoadScene("EscenaUno");
