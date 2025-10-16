@@ -8,6 +8,8 @@ public class MenuInicial : MonoBehaviour
     public GameObject menuInicial;
     public GameObject creditos;
     public GameObject juegoSelect;
+    public GameObject tutoguia;
+
 
 
     public void OpenCreditosPanel()
@@ -30,19 +32,35 @@ public class MenuInicial : MonoBehaviour
         juegoSelect.SetActive(true);
     }
 
-    public void Jugar()
+    public void Jugar1()
     {
         SceneManager.LoadScene("EscenaUno");
     }
-
-    public void Multijugador()
+    public void Jugar2()
     {
-        SceneManager.LoadScene("Multijugador");
+        SceneManager.LoadScene("EscenaDos");
     }
+
+    public void Guia()
+    {
+        juegoSelect.SetActive(false);
+        tutoguia.SetActive(true);
+    }
+    public void OpenSelect()
+    {
+        juegoSelect.SetActive(true);
+        tutoguia.SetActive(false);
+    }
+
+
 
     public void Salir()
     {
         Debug.Log("Salir");
         Application.Quit();
+    }
+    public void Multijugador()
+    {
+        SceneManager.LoadScene("Multijugador");
     }
 }

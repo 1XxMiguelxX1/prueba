@@ -53,6 +53,7 @@ public class GameOver : MonoBehaviour
     {
         Debug.Log("Fuiste al menú, amiga ");
         SceneManager.LoadScene("Menu");
+
     }
 
 
